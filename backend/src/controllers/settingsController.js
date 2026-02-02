@@ -15,17 +15,19 @@ export const getSettings = async (req, res) => {
 
     // If no settings exist, create defaults
     if (!settings) {
-      settings = new Settings({
-        email: process.env.ADMIN_EMAIL,
+      console.log('Creating default settings...');
+      settings = await Settings.create({
+        email: process.env.ADMIN_EMAIL || 'admin@catering.com',
         reminderDays: [1, 3],
         notificationsEnabled: true,
         panchangamFetchEnabled: true,
       });
-      await settings.save();
+      console.log('✓ Default settings created');
     }
 
     sendSuccess(res, settings, 'Settings fetched successfully');
   } catch (error) {
+    console.error('Settings fetch error:', error);
     sendError(res, `Error fetching settings: ${error.message}`);
   }
 };

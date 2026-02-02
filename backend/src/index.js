@@ -9,6 +9,9 @@ dotenv.config();
 // Import database connection
 import connectDB from './config/database.js';
 
+// Import models
+import Settings from './models/Settings.js';
+
 // Import routes
 import eventRoutes from './routes/eventRoutes.js';
 import panchangamRoutes from './routes/panchangamRoutes.js';
@@ -90,6 +93,19 @@ const startServer = async () => {
   try {
     // Wait for DB connection
     await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // Initialize default settings
+    const settingsCount = await Settings.countDocuments();
+    if (settingsCount === 0) {
+      console.log('Creating default settings...');
+      await Settings.create({
+        email: process.env.ADMIN_EMAIL || 'admin@catering.com',
+        reminderDays: [1, 3],
+        notificationsEnabled: true,
+        panchangamFetchEnabled: true,
+      });
+      console.log('✓ Default settings created');
+    }
 
     // Initialize panchangam data on startup
     await initializePanchangamData();
