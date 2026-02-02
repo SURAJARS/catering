@@ -23,14 +23,17 @@ const PORT = process.env.PORT || 5000;
 /**
  * Middleware Setup
  */
-app.use(cors({ 
-  origin: [
-    process.env.FRONTEND_URL || 'http://localhost:5173',
-    'https://catering-gi7gp2bh5-tamils-projects-e7fd0aac.vercel.app',
-    /\.vercel\.app$/,  // Allow all Vercel deployments
-  ],
-  credentials: true 
-}));
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow all origins in production
+    callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
