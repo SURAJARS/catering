@@ -7,7 +7,17 @@ import { dirname, join } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const panchangamData2026 = JSON.parse(readFileSync(join(__dirname, '../data/panchangamData2026.json'), 'utf-8'));
+
+// Load panchangam data with better error handling
+let panchangamData2026;
+try {
+  const dataPath = join(__dirname, '../data/panchangamData2026.json');
+  panchangamData2026 = JSON.parse(readFileSync(dataPath, 'utf-8'));
+  console.log('✓ Panchangam data loaded from JSON file');
+} catch (error) {
+  console.error('❌ Failed to load panchangam data:', error.message);
+  panchangamData2026 = { auspiciousDates: [], inauspiciousDates: [] };
+}
 
 /**
  * Panchangam Service
@@ -266,9 +276,30 @@ export const getPanchangamRange = async (startDate, endDate) => {
   }
 };
 
+/**
+ * Initialize panchangam data on startup
+ * Ensures panchangam data is loaded into MongoDB on server start
+ */
+export const initializePanchangamData = async () => {
+  try {
+    console.log('Initializing panchangam data...');
+    const count = await Panchangam.countDocuments();
+    
+    if (count < 100) { // If less than 100 records, reload all data
+      console.log('Loading panchangam data into database...');
+      await fetchAndStorePanchangam();
+    } else {
+      console.log(`✓ Panchangam data already loaded (${count} records)`);
+    }
+  } catch (error) {
+    console.error('❌ Failed to initialize panchangam data:', error.message);
+  }
+};
+
 export default {
   fetchAndStorePanchangam,
   getPanchangamForDate,
   getAuspiciousDays,
   getPanchangamRange,
+  initializePanchangamData,
 };

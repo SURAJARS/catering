@@ -14,8 +14,9 @@ import eventRoutes from './routes/eventRoutes.js';
 import panchangamRoutes from './routes/panchangamRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
 
-// Import scheduled jobs
+// Import scheduled jobs and services
 import { initializeScheduledJobs } from './jobs/scheduledJobs.js';
+import { initializePanchangamData } from './services/panchangamService.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -89,6 +90,9 @@ const startServer = async () => {
   try {
     // Wait for DB connection
     await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // Initialize panchangam data on startup
+    await initializePanchangamData();
 
     // Initialize scheduled jobs
     initializeScheduledJobs();
