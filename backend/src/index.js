@@ -23,7 +23,14 @@ const PORT = process.env.PORT || 5000;
 /**
  * Middleware Setup
  */
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
+app.use(cors({ 
+  origin: [
+    process.env.FRONTEND_URL || 'http://localhost:5173',
+    'https://catering-gi7gp2bh5-tamils-projects-e7fd0aac.vercel.app',
+    /\.vercel\.app$/,  // Allow all Vercel deployments
+  ],
+  credentials: true 
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
