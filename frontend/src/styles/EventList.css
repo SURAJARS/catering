@@ -1,0 +1,175 @@
+/* Event List Styles */
+.event-list-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.event-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.event-list-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1f2937;
+}
+
+.event-count {
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.event-list {
+  padding: 1rem;
+}
+
+.event-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  transition: all 0.3s;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.event-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.event-card-header h4 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+.event-type {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0 0;
+}
+
+.event-date {
+  background: #667eea;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.event-card-body {
+  padding: 1rem;
+}
+
+.event-details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.event-details-row:last-child {
+  border-bottom: none;
+}
+
+.event-details-row .label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.event-details-row .value {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.payment-info {
+  background: #f9fafb;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin: 1rem 0;
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+}
+
+.payment-row .label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.payment-row .value {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.payment-row .value.pending {
+  color: #ef4444;
+}
+
+.payment-row .value.paid {
+  color: #10b981;
+}
+
+.event-notes {
+  background: #f0f4ff;
+  border-left: 3px solid #667eea;
+  padding: 0.75rem;
+  margin: 1rem 0 0 0;
+  font-size: 0.9rem;
+  color: #4c51bf;
+  border-radius: 4px;
+}
+
+.event-card-footer {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.event-card-footer button {
+  flex: 1;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .event-card-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .event-date {
+    align-self: flex-start;
+  }
+
+  .event-card-footer {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,231 @@
+/* Calendar View Styles */
+.calendar-container {
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.calendar-wrapper {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+/* React Calendar Overrides */
+.react-calendar {
+  width: 100%;
+  border: none;
+  font-family: inherit;
+}
+
+.react-calendar button {
+  padding: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.react-calendar__tile {
+  padding: 1rem 0.5rem;
+  height: auto;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 2px solid #e5e7eb;
+  background: white !important;
+  color: #1f2937 !important;
+  transition: all 0.3s;
+}
+
+.react-calendar__tile:hover {
+  background: white !important;
+  color: #1f2937 !important;
+}
+
+.react-calendar__tile--now {
+  background: white !important;
+  color: #1f2937 !important;
+}
+
+.react-calendar__tile--active:not(.auspicious):not(.inauspicious) {
+  background: #667eea !important;
+  color: white !important;
+  border-color: #667eea !important;
+}
+
+.react-calendar__tile--active.auspicious {
+  background: #10b981 !important;
+  color: white !important;
+  border-color: #059669 !important;
+}
+
+.react-calendar__tile--active.inauspicious {
+  background: #ef4444 !important;
+  color: white !important;
+  border-color: #dc2626 !important;
+}
+
+.react-calendar__tile.auspicious {
+  background: #ecfdf5 !important;
+  border-color: #10b981 !important;
+  border-width: 2px;
+  color: #059669 !important;
+}
+
+.react-calendar__tile.auspicious:hover {
+  background: #d1fae5 !important;
+  color: #059669 !important;
+}
+
+.react-calendar__tile.inauspicious {
+  background: #fef2f2 !important;
+  border-color: #ef4444 !important;
+  border-width: 2px;
+  color: #dc2626 !important;
+}
+
+.react-calendar__tile.inauspicious:hover {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+}
+
+.react-calendar__month-view__weekdays {
+  background: #f9fafb;
+  padding: 0.5rem 0;
+}
+
+.react-calendar__month-view__weekdays abbr {
+  text-decoration: none;
+  font-weight: 600;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.calendar-tile-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  height: 100%;
+}
+
+.event-count {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: white;
+  background: #667eea;
+  display: inline-block;
+  padding: 0.35rem 0.6rem;
+  border-radius: 50%;
+  min-width: 28px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+.calendar-legend {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.calendar-legend h4 {
+  margin: 0 0 1rem 0;
+  font-size: 0.95rem;
+  color: #1f2937;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.loading-text {
+  text-align: center;
+  color: #6b7280;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Calendar Section */
+.calendar-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.calendar-details {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.calendar-details h3 {
+  margin: 0 0 1rem 0;
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+.calendar-details .btn-primary {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .calendar-container {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-section {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .calendar-legend h4 {
+    grid-column: 1 / -1;
+  }
+
+  .legend-item {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .calendar-wrapper {
+    padding: 0.75rem;
+  }
+
+  .react-calendar__tile {
+    min-height: 60px;
+    padding: 0.5rem;
+  }
+
+  .calendar-legend {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,358 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #667eea;
+  --primary-dark: #5568d3;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --border-radius: 8px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f3f4f6;
+  color: var(--gray-900);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* App Layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background: linear-gradient(135deg, #2d3436 0%, #1e2838 100%);
+  color: white;
+  padding: 0.75rem 0 0.25rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+  width: 100%;
+  gap: 1rem;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.header-nav {
+  display: none;
+  gap: 0.5rem;
+  justify-content: center;
+  flex: 1;
+}
+
+.app-logo {
+  height: 80px;
+  width: auto;
+  max-width: 100px;
+  object-fit: contain;
+}
+
+.header-content h1 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(90deg, #ff6b35 0%, #ff8c42 50%, #4ecdc4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+  font-style: italic;
+}
+
+.menu-toggle {
+  display: block;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.app-nav {
+  display: none;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(255, 107, 53, 0.2);
+}
+
+.app-nav.open {
+  display: flex;
+}
+
+@media (min-width: 901px) {
+  .header-nav {
+    display: flex;
+  }
+  
+  .app-nav {
+    display: none !important;
+  }
+  
+  .menu-toggle {
+    display: none !important;
+  }
+  
+  .logo-section {
+    gap: 1rem;
+  }
+  
+  .app-logo {
+    height: 120px;
+    max-width: 150px;
+  }
+  
+  .header-content h1 {
+    font-size: 2rem;
+  }
+  
+  .header-content {
+    gap: 2rem;
+  }
+}
+
+.nav-btn {
+  background: rgba(255, 107, 53, 0.15);
+  border: 2px solid rgba(255, 107, 53, 0.3);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: center;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 107, 53, 0.3);
+  border-color: rgba(255, 107, 53, 0.6);
+  transform: translateY(-2px);
+}
+
+.nav-btn.active {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+  border-color: #ff6b35;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+}
+
+@media (min-width: 901px) {
+  .nav-btn {
+    width: auto;
+  }
+}
+
+.app-main {
+  flex: 1;
+  padding: 2rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Buttons */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary,
+.btn-save,
+.btn-cancel {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover,
+.btn-save:hover {
+  background: var(--primary-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:disabled,
+.btn-save:disabled {
+  background: var(--gray-300);
+  cursor: not-allowed;
+}
+
+.btn-primary.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-cancel {
+  background: var(--gray-300);
+  color: var(--gray-700);
+}
+
+.btn-cancel:hover {
+  background: var(--gray-400);
+}
+
+.btn-icon {
+  background: none;
+  border: 1px solid var(--gray-300);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.btn-icon:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-400);
+}
+
+.btn-icon.edit {
+  color: var(--primary);
+}
+
+.btn-icon.delete {
+  color: var(--danger);
+}
+
+/* Loading & Messages */
+.loading,
+.loading-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  color: var(--gray-500);
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.message {
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+
+.message-success {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.message-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.message-icon {
+  flex-shrink: 0;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--gray-500);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .app-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .app-nav.open {
+    display: flex;
+  }
+
+  .app-main {
+    padding: 1rem;
+  }
+
+  .header-content h1 {
+    font-size: 1.2rem;
+  }
+}
