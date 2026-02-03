@@ -100,7 +100,9 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      onSave(formData);
+      // Don't send eventPhotos to backend (store locally for now)
+      const { eventPhotos, ...dataToSave } = formData;
+      onSave(dataToSave);
     }
   };
 
