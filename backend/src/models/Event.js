@@ -19,7 +19,25 @@ const EventSchema = new mongoose.Schema(
     },
     eventType: {
       type: String,
-      enum: ['Marriage', 'Reception', 'Engagement', 'Other'],
+      enum: [
+        'Birthday',
+        'Ear piercing',
+        'Puberty ceremony',
+        'Engagement',
+        'Marriage',
+        'Reception',
+        'Virundhu',
+        'Valaikaapu',
+        '60th marriage',
+        '70th marriage',
+        'Club orders',
+        'Shop opening',
+        'Brand meeting',
+        'School orders',
+        'Temple function',
+        'Photo ceremony',
+        'Others'
+      ],
       required: [true, 'Event type is required'],
     },
 
@@ -28,6 +46,11 @@ const EventSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Client name is required'],
       trim: true,
+    },
+    clientNickname: {
+      type: String,
+      trim: true,
+      default: '',
     },
     phoneNumber: {
       type: String,
@@ -63,6 +86,14 @@ const EventSchema = new mongoose.Schema(
       trim: true,
       default: '',
     },
+    eventPhotoUrl: {
+      type: String,
+      default: '',
+    },
+    eventPhotos: [{
+      type: String, // Store multiple photo URLs
+      default: '',
+    }],
     isCancelled: {
       type: Boolean,
       default: false,

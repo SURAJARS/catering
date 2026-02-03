@@ -3,8 +3,10 @@ import { FiPlus, FiMenu, FiX } from 'react-icons/fi';
 import EventForm from './components/EventForm';
 import EventList from './components/EventList';
 import CalendarView from './components/CalendarView';
+import TamilCalendarView from './components/TamilCalendarView';
 import Dashboard from './components/Dashboard';
 import Settings from './components/Settings';
+import SearchBar from './components/SearchBar';
 import { eventsAPI } from './api';
 import './styles/App.css';
 
@@ -13,7 +15,7 @@ import './styles/App.css';
  * Routes between different sections and manages global state
  */
 function App() {
-  const [currentView, setCurrentView] = useState('events'); // events, calendar, dashboard, settings
+  const [currentView, setCurrentView] = useState('events'); // events, calendar, tamil-calendar, dashboard, settings
   const [events, setEvents] = useState([]);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ function App() {
 
   // Fetch events on component mount and when view changes
   useEffect(() => {
-    if (currentView === 'events' || currentView === 'calendar') {
+    if (currentView === 'events' || currentView === 'calendar' || currentView === 'tamil-calendar') {
       fetchEvents();
     } else if (currentView === 'dashboard') {
       fetchDashboardStats();
@@ -33,7 +35,7 @@ function App() {
 
   // Refresh events automatically every 30 seconds
   useEffect(() => {
-    if (currentView === 'events' || currentView === 'calendar') {
+    if (currentView === 'events' || currentView === 'calendar' || currentView === 'tamil-calendar') {
       const interval = setInterval(() => {
         fetchEvents();
       }, 30000);
@@ -74,6 +76,12 @@ function App() {
   };
 
   const handleEditEvent = (event) => {
+    setSelectedEvent(event);
+    setShowForm(true);
+  };
+
+  const handleSearchSelect = (event) => {
+    setCurrentView('events'); // Switch to events view
     setSelectedEvent(event);
     setShowForm(true);
   };
@@ -133,6 +141,8 @@ function App() {
             <img src="/assets/logo.png" alt="Amman Catering" className="app-logo" />
             <h1>Amman Catering</h1>
           </div>
+
+          <SearchBar onSelectEvent={handleSearchSelect} />
           
           <nav className="header-nav">
             <button
@@ -152,6 +162,15 @@ function App() {
               }}
             >
               📅 Calendar
+            </button>
+            <button
+              className={`nav-btn ${currentView === 'tamil-calendar' ? 'active' : ''}`}
+              onClick={() => {
+                setCurrentView('tamil-calendar');
+                setMenuOpen(false);
+              }}
+            >
+              🇮🇳 Tamil
             </button>
             <button
               className={`nav-btn ${currentView === 'dashboard' ? 'active' : ''}`}
@@ -196,6 +215,15 @@ function App() {
             }}
           >
             📅 Calendar
+          </button>
+          <button
+            className={`nav-btn ${currentView === 'tamil-calendar' ? 'active' : ''}`}
+            onClick={() => {
+              setCurrentView('tamil-calendar');
+              setMenuOpen(false);
+            }}
+          >
+            🇮🇳 Tamil
           </button>
           <button
             className={`nav-btn ${currentView === 'dashboard' ? 'active' : ''}`}
@@ -255,6 +283,15 @@ function App() {
                 loading={loading}
               />
             </div>
+          </div>
+        )}
+
+        {currentView === 'tamil-calendar' && (
+          <div className="tamil-calendar-section">
+            <button className="btn-primary" onClick={handleCreateEvent}>
+              <FiPlus /> New Event
+            </button>
+            <TamilCalendarView events={events} />
           </div>
         )}
 

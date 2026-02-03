@@ -236,6 +236,47 @@ export const getDashboardStats = async (req, res) => {
   }
 };
 
+/**
+ * POST /api/events/search - Search events by various criteria
+ * Body: { query: string }
+ * Searches in: clientName, clientNickname, phoneNumber, eventType, location, notes
+ */
+export const searchEvents = async (req, res) => {
+  try {
+    const { query } = req.body;
+
+    if (!query || query.trim().length === 0) {
+      return sendError(res, 'Search query is required', 400);
+    }
+
+    const searchQuery = query.trim();
+    const regex = new RegExp(searchQuery, 'i'); // Case-insensitive search
+
+    // Search in multiple fields
+    const events = await Event.find({
+      $and: [
+        { isCancelled: false },
+        {
+          $or: [
+            { clientName: { $regex: regex } },
+            { clientNickname: { $regex: regex } },
+            { phoneNumber: { $regex: regex } },
+            { eventType: { $regex: regex } },
+            { location: { $regex: regex } },
+            { notes: { $regex: regex } },
+          ],
+        },
+      ],
+    })
+      .sort({ eventDate: -1 })
+      .limit(50);
+
+    sendSuccess(res, events, `Found ${events.length} matching events`);
+  } catch (error) {
+    sendError(res, `Error searching events: ${error.message}`);
+  }
+};
+
 export default {
   getAllEvents,
   getEventById,
@@ -243,4 +284,5 @@ export default {
   updateEvent,
   deleteEvent,
   getDashboardStats,
+  searchEvents,
 };

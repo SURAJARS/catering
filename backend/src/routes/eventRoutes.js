@@ -14,6 +14,9 @@ router.get('/', eventController.getAllEvents);
 // GET /api/events/stats/dashboard - Dashboard statistics
 router.get('/stats/dashboard', eventController.getDashboardStats);
 
+// POST /api/events/search - Search events by query
+router.post('/search', eventController.searchEvents);
+
 // GET /api/events/:id - Get single event
 router.get('/:id', eventController.getEventById);
 

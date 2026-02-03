@@ -1,13 +1,35 @@
 import React, { useState } from 'react';
-import { FiX, FiCalendar, FiClock, FiUser, FiPhone, FiMapPin, FiDollarSign, FiAlertCircle } from 'react-icons/fi';
+import { FiX, FiCalendar, FiClock, FiUser, FiPhone, FiMapPin, FiDollarSign, FiAlertCircle, FiCamera } from 'react-icons/fi';
 import { panchangamAPI } from '../api';
 import { PANCHANGAM_COLORS } from '../config';
+import { formatTo12Hour } from '../utils/timeFormatter';
 import '../styles/EventForm.css';
 
 /**
  * Event Form Component
  * Create/Edit catering bookings with panchangam suggestions
  */
+
+const EVENT_TYPES = [
+  'Birthday',
+  'Ear piercing',
+  'Puberty ceremony',
+  'Engagement',
+  'Marriage',
+  'Reception',
+  'Virundhu',
+  'Valaikaapu',
+  '60th marriage',
+  '70th marriage',
+  'Club orders',
+  'Shop opening',
+  'Brand meeting',
+  'School orders',
+  'Temple function',
+  'Photo ceremony',
+  'Others'
+];
+
 const EventForm = ({ event, onClose, onSave, loading }) => {
   const [formData, setFormData] = useState(
     event || {
@@ -15,11 +37,13 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
       eventTime: '18:00',
       eventType: 'Marriage',
       clientName: '',
+      clientNickname: '',
       phoneNumber: '',
       location: '',
       totalAmount: '',
       advancePaid: '',
       notes: '',
+      eventPhotos: [],
     }
   );
 
@@ -125,16 +149,18 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
                 onChange={handleChange}
                 className={errors.eventTime ? 'error' : ''}
               />
+              {formData.eventTime && (
+                <small className="time-display">Selected: {formatTo12Hour(formData.eventTime)}</small>
+              )}
               {errors.eventTime && <span className="error-text">{errors.eventTime}</span>}
             </div>
 
             <div className="form-group">
               <label>Event Type</label>
               <select name="eventType" value={formData.eventType} onChange={handleChange}>
-                <option value="Marriage">Marriage</option>
-                <option value="Reception">Reception</option>
-                <option value="Engagement">Engagement</option>
-                <option value="Other">Other</option>
+                {EVENT_TYPES.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -156,6 +182,19 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
               {errors.clientName && <span className="error-text">{errors.clientName}</span>}
             </div>
 
+            <div className="form-group">
+              <label>Nickname (Optional)</label>
+              <input
+                type="text"
+                name="clientNickname"
+                value={formData.clientNickname || ''}
+                onChange={handleChange}
+                placeholder="Nickname for reference"
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
             <div className="form-group">
               <label>
                 <FiPhone className="icon" />
@@ -235,8 +274,49 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
           )}
 
           <div className="form-row">
-            <div className="form-group full">
-              <label>Notes</label>
+            <div className="form-group full">              <label>📸 Event Photos (Optional)</label>
+              <div className="photo-upload-section">
+                <input
+                  type="file"
+                  id="photoInput"
+                  multiple
+                  accept="image/*"
+                  capture="environment"
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files || []);
+                    // In production, upload to server and get URLs
+                    // For now, store as base64
+                    files.forEach((file) => {
+                      const reader = new FileReader();
+                      reader.onload = (event) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          eventPhotos: [...(prev.eventPhotos || []), event.target.result],
+                        }));
+                      };
+                      reader.readAsDataURL(file);
+                    });
+                  }}
+                  style={{ display: 'none' }}
+                />
+                <button
+                  type="button"
+                  className="photo-btn"
+                  onClick={() => document.getElementById('photoInput').click()}
+                >
+                  <FiCamera /> Upload from Gallery / Camera
+                </button>
+                {formData.eventPhotos && formData.eventPhotos.length > 0 && (
+                  <div className="photo-preview">
+                    <p>{formData.eventPhotos.length} photo(s) selected</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group full">              <label>Notes</label>
               <textarea
                 name="notes"
                 value={formData.notes}

@@ -1,0 +1,255 @@
+/* Tamil Calendar View Styles */
+.tamil-calendar-container {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.tamil-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.month-display {
+  text-align: center;
+  flex: 1;
+}
+
+.month-display h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: #ff6b35;
+  font-family: 'Arial Black', sans-serif;
+  letter-spacing: 1px;
+}
+
+.month-display p {
+  margin: 0.25rem 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.month-display .gregorian-month {
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
+
+.nav-btn-calendar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.nav-btn-calendar:hover {
+  background: #ff6b35;
+  color: white;
+  transform: scale(1.1);
+}
+
+.today-btn {
+  display: block;
+  margin: 0 auto 1.5rem;
+  padding: 0.5rem 1.5rem;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.today-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+/* Weekday Headers */
+.tamil-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  background: #f9fafb;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.tamil-weekday {
+  text-align: center;
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+/* Calendar Grid */
+.tamil-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tamil-calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  background: white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.tamil-calendar-day.empty {
+  background: #f9fafb;
+  border: 2px dashed #e5e7eb;
+  opacity: 0.5;
+}
+
+.tamil-calendar-day.today {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+}
+
+.tamil-calendar-day.today .day-number,
+.tamil-calendar-day.today .tamil-day-label {
+  color: white;
+}
+
+.tamil-calendar-day.has-events {
+  background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 100%);
+  border-color: #ff6b35;
+}
+
+.tamil-calendar-day:not(.empty):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.day-number {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.tamil-day-label {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  margin-bottom: 0.25rem;
+}
+
+.day-event-count {
+  font-size: 0.7rem;
+  color: #ff6b35;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.day-event-preview {
+  font-size: 0.65rem;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: rgba(255, 107, 53, 0.1);
+  padding: 0.15rem 0.25rem;
+  border-radius: 3px;
+  margin-bottom: 0.1rem;
+}
+
+.more-events {
+  font-size: 0.65rem;
+  color: #ff6b35;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Legend */
+.tamil-calendar-legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 6px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.today-color {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.events-color {
+  background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 100%);
+  border: 2px solid #ff6b35;
+}
+
+.legend-item span {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .tamil-calendar-container {
+    padding: 1rem;
+  }
+
+  .tamil-calendar-header {
+    flex-wrap: wrap;
+  }
+
+  .month-display h2 {
+    font-size: 1.5rem;
+  }
+
+  .tamil-calendar-day {
+    aspect-ratio: auto;
+    min-height: 80px;
+  }
+
+  .day-number {
+    font-size: 1rem;
+  }
+
+  .tamil-day-label {
+    font-size: 0.65rem;
+  }
+
+  .tamil-calendar-legend {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}

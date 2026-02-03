@@ -111,6 +111,14 @@
   margin-top: 0.25rem;
 }
 
+.time-display {
+  display: block;
+  color: #667eea;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 0.35rem;
+}
+
 .icon {
   width: 18px;
   height: 18px;

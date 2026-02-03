@@ -30,6 +30,7 @@ export const eventsAPI = {
   delete: (id) => apiClient.delete(`/events/${id}`),
   getDashboardStats: (startDate, endDate) =>
     apiClient.get('/events/stats/dashboard', { params: { startDate, endDate } }),
+  searchEvents: (query) => apiClient.post('/events/search', { query }),
 };
 
 /**
