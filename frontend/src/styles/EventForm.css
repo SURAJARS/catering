@@ -232,6 +232,44 @@
   border-top: 1px solid #e5e7eb;
 }
 
+/* Photo Preview Styles */
+.stored-photo-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+}
+
+.stored-photo-preview p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.photo-thumbnail {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.new-photos-note {
+  margin: 0;
+  padding: 0.5rem;
+  background: rgba(255, 107, 53, 0.1);
+  color: #ff6b35;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  text-align: center;
+}
+
 @media (max-width: 600px) {
   .form-row {
     grid-template-columns: 1fr;

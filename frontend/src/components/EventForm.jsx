@@ -100,9 +100,18 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Don't send eventPhotos to backend (store locally for now)
-      const { eventPhotos, ...dataToSave } = formData;
-      onSave(dataToSave);
+      // Only send first photo as eventPhotoUrl if photos exist
+      const dataToSend = { ...formData };
+      if (formData.eventPhotos && formData.eventPhotos.length > 0) {
+        // Only send first photo and limit size to ~500KB
+        const firstPhoto = formData.eventPhotos[0];
+        if (firstPhoto.length < 500000) { // ~500KB limit
+          dataToSend.eventPhotoUrl = firstPhoto;
+        }
+      }
+      // Clear eventPhotos array before sending
+      delete dataToSend.eventPhotos;
+      onSave(dataToSend);
     }
   };
 
@@ -308,11 +317,19 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
                 >
                   <FiCamera /> Upload from Gallery / Camera
                 </button>
-                {formData.eventPhotos && formData.eventPhotos.length > 0 && (
+                {(formData.eventPhotos && formData.eventPhotos.length > 0) || formData.eventPhotoUrl ? (
                   <div className="photo-preview">
-                    <p>{formData.eventPhotos.length} photo(s) selected</p>
+                    {formData.eventPhotoUrl && (
+                      <div className="stored-photo-preview">
+                        <p>📸 Stored Photo:</p>
+                        <img src={formData.eventPhotoUrl} alt="Event" className="photo-thumbnail" />
+                      </div>
+                    )}
+                    {formData.eventPhotos && formData.eventPhotos.length > 0 && (
+                      <p className="new-photos-note">{formData.eventPhotos.length} new photo(s) selected</p>
+                    )}
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
           </div>

@@ -72,6 +72,7 @@ export const createEvent = async (req, res) => {
       totalAmount,
       advancePaid,
       notes,
+      eventPhotoUrl,
     } = req.body;
 
     // Validation
@@ -107,6 +108,7 @@ export const createEvent = async (req, res) => {
       totalAmount: parseFloat(totalAmount),
       advancePaid: parseFloat(advancePaid) || 0,
       notes: notes || '',
+      eventPhotoUrl: eventPhotoUrl || '',
     });
 
     await event.save();
