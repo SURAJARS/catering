@@ -31,6 +31,7 @@
   border: 2px solid #e5e7eb;
   border-radius: 6px;
   transition: all 0.3s ease;
+  min-height: 40px;
 }
 
 .search-input-wrapper:focus-within {
@@ -42,6 +43,7 @@
   .search-input-wrapper {
     padding: 0.4rem 0.6rem;
     gap: 0.3rem;
+    min-height: 36px;
   }
 }
 
@@ -66,19 +68,25 @@
   font-size: 1rem;
   background: transparent;
   font-family: inherit;
+  min-width: 0;
+  line-height: 1.5;
+  height: 100%;
 }
 
 .search-input::placeholder {
   color: #d1d5db;
+  opacity: 1;
 }
 
 @media (max-width: 600px) {
   .search-input {
     font-size: 0.9rem;
+    line-height: 1.4;
   }
   
   .search-input::placeholder {
     font-size: 0.8rem;
+    opacity: 0.9;
   }
 }
 
