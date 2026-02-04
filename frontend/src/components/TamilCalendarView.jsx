@@ -1,15 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { getTamilMonthForDate, getTamilWeekday, TAMIL_WEEKDAYS_SHORT, getApproximateTamilMonthDay } from '../utils/tamilCalendar';
+import { getPanchangamForMonth, getAstrologicalInfo } from '../utils/panchangamService';
 import '../styles/TamilCalendarView.css';
 
 /**
  * Tamil Calendar View Component
- * Displays Tamil calendar with dates
+ * Displays Tamil calendar with dates and optional astrological info
  */
 
 const TamilCalendarView = ({ events }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [panchangamData, setPanchangamData] = useState(new Map());
+  const [showAstrological, setShowAstrological] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch panchangam data for the current month
+  useEffect(() => {
+    const fetchPanchangam = async () => {
+      if (!showAstrological) return;
+      
+      setLoading(true);
+      try {
+        const data = await getPanchangamForMonth(currentDate);
+        setPanchangamData(data);
+      } catch (error) {
+        console.error('Failed to fetch panchangam:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchPanchangam();
+  }, [currentDate, showAstrological]);
 
   // Get all days in current month
   const getDaysInMonth = (date) => {
@@ -88,9 +111,22 @@ const TamilCalendarView = ({ events }) => {
         </button>
       </div>
 
-      <button className="today-btn" onClick={handleToday}>
-        Today
-      </button>
+      <div className="calendar-controls">
+        <button className="today-btn" onClick={handleToday}>
+          Today
+        </button>
+        <button 
+          className={`astro-toggle-btn ${showAstrological ? 'active' : ''}`}
+          onClick={() => setShowAstrological(!showAstrological)}
+          title="Toggle astrological view"
+        >
+          {showAstrological ? '✨ Astrological' : '📅 Regular'}
+        </button>
+      </div>
+
+      {loading && showAstrological && (
+        <div className="loading-indicator">Loading astrological data...</div>
+      )}
 
       <div className="tamil-weekdays">
         {TAMIL_WEEKDAYS_SHORT.map((day, index) => (
@@ -100,7 +136,7 @@ const TamilCalendarView = ({ events }) => {
         ))}
       </div>
 
-      <div className="tamil-calendar-grid">
+      <div className={`tamil-calendar-grid ${showAstrological ? 'with-astro' : ''}`}>
         {calendarDays.map((day, index) => {
           const isCurrentMonth = day !== null;
           const dateObj = isCurrentMonth
@@ -109,30 +145,54 @@ const TamilCalendarView = ({ events }) => {
           const isToday = isCurrentMonth && dateObj.toDateString() === new Date().toDateString();
           const dayEvents = isCurrentMonth ? getEventsForDate(day) : [];
           const tamilWeekday = isCurrentMonth ? getTamilWeekday(dateObj, true) : '';
+          
+          let astroInfo = { hasData: false };
+          if (showAstrological && isCurrentMonth) {
+            astroInfo = getAstrologicalInfo(dateObj, panchangamData);
+          }
 
           return (
             <div
               key={index}
               className={`tamil-calendar-day ${!isCurrentMonth ? 'empty' : ''} ${
                 isToday ? 'today' : ''
-              } ${dayEvents.length > 0 ? 'has-events' : ''}`}
+              } ${dayEvents.length > 0 ? 'has-events' : ''} ${
+                showAstrological && astroInfo.isAuspicious ? 'auspicious' : ''
+              }`}
             >
               {isCurrentMonth ? (
                 <>
-                  <div className="day-number">{day}</div>
+                  <div className="day-header">
+                    <div className="day-number">{day}</div>
+                    {showAstrological && astroInfo.hasData && (
+                      <div className="astro-icons">
+                        {astroInfo.isPournami && <span className="moon-icon" title="பௌர்ணமி (Pournami - Full Moon)">🌕</span>}
+                        {astroInfo.isAmavasai && <span className="moon-icon" title="அமாவாசை (Amavasai - New Moon)">🌑</span>}
+                        {astroInfo.isAuspicious && <span className="astro-badge" title="மুருத்தம் (Murutham - Auspicious)">✨</span>}
+                      </div>
+                    )}
+                  </div>
+                  
                   <div className="tamil-day-label">{tamilWeekday}</div>
                   <div className="tamil-month-day">
                     {getTamilMonthForDate(dateObj).tamil} {getApproximateTamilMonthDay(dateObj)}
                   </div>
+
+                  {showAstrological && astroInfo.hasData && astroInfo.tithi && (
+                    <div className="tithi-info" title="Tithi">
+                      {astroInfo.tithi}
+                    </div>
+                  )}
+                  
                   {dayEvents.length > 0 && (
                     <div className="day-event-count">{dayEvents.length} event(s)</div>
                   )}
-                  {dayEvents.slice(0, 2).map((event, idx) => (
+                  {dayEvents.slice(0, 1).map((event, idx) => (
                     <div key={idx} className="day-event-preview" title={event.clientName}>
                       {event.clientName.substring(0, 8)}...
                     </div>
                   ))}
-                  {dayEvents.length > 2 && <div className="more-events">+{dayEvents.length - 2}</div>}
+                  {dayEvents.length > 1 && <div className="more-events">+{dayEvents.length - 1}</div>}
                 </>
               ) : null}
             </div>
@@ -149,6 +209,22 @@ const TamilCalendarView = ({ events }) => {
           <div className="legend-color events-color"></div>
           <span>Events scheduled</span>
         </div>
+        {showAstrological && (
+          <>
+            <div className="legend-item">
+              <span className="moon-icon">🌕</span>
+              <span>Pournami</span>
+            </div>
+            <div className="legend-item">
+              <span className="moon-icon">🌑</span>
+              <span>Amavasai</span>
+            </div>
+            <div className="legend-item">
+              <span className="astro-badge">✨</span>
+              <span>Auspicious</span>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

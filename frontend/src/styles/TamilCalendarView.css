@@ -276,6 +276,103 @@
   color: #6b7280;
 }
 
+/* Calendar Controls */
+.calendar-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.astro-toggle-btn {
+  padding: 0.5rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.astro-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.astro-toggle-btn.active {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 1rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Astrological Elements */
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 0.05rem;
+}
+
+.astro-icons {
+  display: flex;
+  gap: 0.15rem;
+  font-size: 0.9rem;
+}
+
+.moon-icon {
+  cursor: help;
+  display: inline-block;
+  opacity: 0.9;
+  transition: transform 0.2s ease;
+}
+
+.moon-icon:hover {
+  transform: scale(1.2);
+}
+
+.astro-badge {
+  display: inline-block;
+  color: #ff6b35;
+  font-weight: bold;
+  cursor: help;
+  opacity: 0.9;
+  transition: all 0.2s ease;
+}
+
+.astro-badge:hover {
+  transform: scale(1.15);
+  opacity: 1;
+}
+
+.tithi-info {
+  font-size: 0.5rem;
+  color: #667eea;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 0.08rem;
+  word-break: break-word;
+}
+
+/* Auspicious Day Styling */
+.tamil-calendar-day.auspicious {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.05) 100%);
+}
+
+.tamil-calendar-day.auspicious:not(.empty):hover {
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.2);
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .tamil-calendar-container {
@@ -318,6 +415,16 @@
     margin-bottom: 1rem;
   }
 
+  .astro-toggle-btn {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.75rem;
+  }
+
+  .calendar-controls {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
   .tamil-weekdays {
     gap: 0.3rem;
     padding: 0.5rem;
@@ -345,6 +452,15 @@
     min-height: auto;
   }
 
+  .day-header {
+    margin-bottom: 0.05rem;
+  }
+
+  .astro-icons {
+    gap: 0.1rem;
+    font-size: 0.8rem;
+  }
+
   .day-number {
     font-size: 0.95rem;
     margin-bottom: 0.1rem;
@@ -362,6 +478,11 @@
     margin-bottom: 0.08rem;
     line-height: 1.1;
     word-break: break-word;
+  }
+
+  .tithi-info {
+    font-size: 0.48rem;
+    margin-bottom: 0.06rem;
   }
 
   .day-event-count {
@@ -410,6 +531,16 @@
     margin-bottom: 0.5rem;
   }
 
+  .calendar-controls {
+    gap: 0.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .astro-toggle-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+  }
+
   .month-display h2 {
     font-size: 1.1rem;
   }
@@ -429,6 +560,15 @@
     padding: 0.3rem 0.2rem;
   }
 
+  .day-header {
+    gap: 0.1rem;
+  }
+
+  .astro-icons {
+    font-size: 0.7rem;
+    gap: 0.08rem;
+  }
+
   .day-number {
     font-size: 0.85rem;
   }
@@ -439,6 +579,10 @@
 
   .tamil-month-day {
     font-size: 0.45rem;
+  }
+
+  .tithi-info {
+    font-size: 0.42rem;
   }
 
   .day-event-count {
