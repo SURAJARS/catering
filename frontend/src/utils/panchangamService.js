@@ -113,12 +113,23 @@ export const getPanchangamForMonth = async (date) => {
     
     const panchangamData = await getPanchangamRange(startDate, endDate);
     
+    console.log(`Creating map for ${panchangamData.length} panchangam records...`);
+    
     // Create map for easy access by date
     const dataMap = new Map();
     panchangamData.forEach((item) => {
-      const dateKey = new Date(item.date).toISOString().split('T')[0];
+      // Handle both string and Date objects from API
+      let dateKey;
+      if (typeof item.date === 'string') {
+        dateKey = item.date.split('T')[0]; // Already in YYYY-MM-DD format
+      } else {
+        dateKey = new Date(item.date).toISOString().split('T')[0];
+      }
       dataMap.set(dateKey, item);
+      console.log(`Mapped ${dateKey}:`, { isPournami: item.isPournami, isAmavasai: item.isAmavasai, isAuspicious: item.isAuspiciousDay });
     });
+    
+    console.log(`Panchangam map created with ${dataMap.size} entries`);
     
     // Cache the result
     panchangamCache.set(cacheKey, dataMap);
