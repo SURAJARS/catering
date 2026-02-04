@@ -157,6 +157,7 @@
   cursor: default;
   justify-content: flex-start;
   font-size: 0.7rem;
+  gap: 0.08rem;
 }
 
 .tamil-calendar-day.empty {
@@ -278,46 +279,174 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .tamil-calendar-container {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .calendar-info-banner {
-    font-size: 0.8rem;
-    padding: 0.6rem 0.8rem;
-    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.6rem;
+    margin-bottom: 0.75rem;
   }
 
   .tamil-calendar-header {
     flex-wrap: wrap;
+    margin-bottom: 1rem;
   }
 
   .month-display h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  .month-display p {
+    margin: 0.15rem 0;
+    font-size: 0.75rem;
   }
 
   .tamil-month-row {
-    gap: 0.3rem;
+    gap: 0.25rem;
+    margin-bottom: 0.3rem;
   }
 
   .english-equiv {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+  }
+
+  .today-btn {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .tamil-weekdays {
+    gap: 0.3rem;
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tamil-weekday {
+    font-size: 0.6rem;
+    padding: 0.35rem 0;
+  }
+
+  .tamil-calendar-grid {
+    gap: 0.3rem;
+    margin-bottom: 1rem;
   }
 
   .tamil-calendar-day {
     aspect-ratio: auto;
-    min-height: 80px;
+    min-height: 85px;
+    padding: 0.35rem 0.25rem;
+    gap: 0.1rem;
+  }
+
+  .tamil-calendar-day.empty {
+    min-height: auto;
   }
 
   .day-number {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 0.1rem;
+    font-weight: 700;
   }
 
   .tamil-day-label {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
+    margin-bottom: 0.08rem;
+    line-height: 1;
+  }
+
+  .tamil-month-day {
+    font-size: 0.5rem;
+    margin-bottom: 0.08rem;
+    line-height: 1.1;
+    word-break: break-word;
+  }
+
+  .day-event-count {
+    font-size: 0.55rem;
+    margin-bottom: 0.08rem;
+    line-height: 1;
+  }
+
+  .day-event-preview {
+    font-size: 0.5rem;
+    padding: 0.08rem 0.15rem;
+    margin-bottom: 0.06rem;
+    line-height: 1;
+  }
+
+  .more-events {
+    font-size: 0.5rem;
+    line-height: 1;
   }
 
   .tamil-calendar-legend {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .legend-item {
+    gap: 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  .legend-color {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tamil-calendar-container {
+    padding: 0.5rem;
+  }
+
+  .calendar-info-banner {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .month-display h2 {
+    font-size: 1.1rem;
+  }
+
+  .month-display p {
+    font-size: 0.7rem;
+    margin: 0.1rem 0;
+  }
+
+  .tamil-weekday {
+    font-size: 0.55rem;
+    padding: 0.3rem 0;
+  }
+
+  .tamil-calendar-day {
+    min-height: 75px;
+    padding: 0.3rem 0.2rem;
+  }
+
+  .day-number {
+    font-size: 0.85rem;
+  }
+
+  .tamil-day-label {
+    font-size: 0.5rem;
+  }
+
+  .tamil-month-day {
+    font-size: 0.45rem;
+  }
+
+  .day-event-count {
+    font-size: 0.5rem;
+  }
+
+  .day-event-preview {
+    font-size: 0.45rem;
+    padding: 0.06rem 0.1rem;
   }
 }
