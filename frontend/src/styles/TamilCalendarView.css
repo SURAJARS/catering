@@ -147,7 +147,7 @@
   aspect-ratio: 1;
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 0.4rem 0.35rem;
   border: 2px solid #e5e7eb;
   border-radius: 6px;
   background: white;
@@ -155,6 +155,8 @@
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: default;
+  justify-content: flex-start;
+  font-size: 0.7rem;
 }
 
 .tamil-calendar-day.empty {
@@ -186,49 +188,55 @@
 
 .day-number {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #1f2937;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
+  line-height: 1;
 }
 
 .tamil-day-label {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   color: #9ca3af;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
+  line-height: 1.1;
 }
 
 .tamil-month-day {
-  font-size: 0.65rem;
+  font-size: 0.55rem;
   color: #ff6b35;
   font-weight: 600;
-  margin-bottom: 0.25rem;
-  white-space: nowrap;
+  margin-bottom: 0.15rem;
+  word-wrap: break-word;
+  line-height: 1.1;
+  text-align: center;
 }
 
 .day-event-count {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   color: #ff6b35;
   font-weight: 600;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
 }
 
 .day-event-preview {
-  font-size: 0.65rem;
+  font-size: 0.55rem;
   color: #6b7280;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   background: rgba(255, 107, 53, 0.1);
-  padding: 0.15rem 0.25rem;
+  padding: 0.1rem 0.2rem;
   border-radius: 3px;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.08rem;
+  line-height: 1;
 }
 
 .more-events {
-  font-size: 0.65rem;
+  font-size: 0.55rem;
   color: #ff6b35;
   font-weight: 600;
   text-align: center;
+  line-height: 1;
 }
 
 /* Legend */
