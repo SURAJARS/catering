@@ -16,16 +16,21 @@ export const getPanchangamRange = async (startDate, endDate) => {
     const start = startDate.toISOString().split('T')[0];
     const end = endDate.toISOString().split('T')[0];
     
+    console.log(`Fetching panchangam from ${start} to ${end}...`);
+    
     const response = await fetch(
       `${API_BASE}/panchangam/range?startDate=${start}&endDate=${end}`
     );
     
     if (!response.ok) {
+      console.error(`HTTP ${response.status}: ${response.statusText}`);
       throw new Error(`HTTP ${response.status}`);
     }
     
-    const data = await response.json();
-    return data.data || [];
+    const jsonData = await response.json();
+    console.log('Panchangam response:', jsonData);
+    
+    return jsonData.data || [];
   } catch (error) {
     console.error('Failed to fetch panchangam data:', error);
     return [];
@@ -142,9 +147,11 @@ export const getAstrologicalInfo = (date, panchangamMap) => {
   const dateKey = date.toISOString().split('T')[0];
   const panchangam = panchangamMap?.get(dateKey);
   
+  // Always return hasData true for now to show icons
+  // Fallback to marking as non-auspicious if no data
   if (!panchangam) {
     return {
-      hasData: false,
+      hasData: true, // Show UI elements even without data
       isPournami: false,
       isAmavasai: false,
       isAuspicious: false,
