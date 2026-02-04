@@ -60,15 +60,27 @@ const TamilCalendarView = ({ events }) => {
 
   return (
     <div className="tamil-calendar-container">
+      <div className="calendar-info-banner">
+        <p>
+          📌 <strong>Tamil Calendar View:</strong> Dates are synchronized with the English calendar. 
+          All events shown are the same across both calendar views.
+        </p>
+      </div>
+
       <div className="tamil-calendar-header">
         <button className="nav-btn-calendar" onClick={handlePrevMonth}>
           <FiChevronLeft />
         </button>
 
         <div className="month-display">
-          <h2>{tamilMonth.tamil}</h2>
-          <p>{tamilMonth.english}</p>
-          <p className="gregorian-month">{tamilMonth.gregorianMonth} {currentDate.getFullYear()}</p>
+          <div className="tamil-month-row">
+            <h2>{tamilMonth.tamil}</h2>
+            <span className="english-equiv">({tamilMonth.english})</span>
+          </div>
+          <p className="gregorian-month">
+            {currentDate.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}
+          </p>
+          <p className="calendar-sync-note">Same dates as English calendar</p>
         </div>
 
         <button className="nav-btn-calendar" onClick={handleNextMonth}>

@@ -7,6 +7,22 @@
   margin-bottom: 2rem;
 }
 
+.calendar-info-banner {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(4, 217, 115, 0.05) 100%);
+  border: 1px solid #10b981;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  color: #047857;
+  font-size: 0.9rem;
+}
+
+.calendar-info-banner p {
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
 .tamil-calendar-header {
   display: flex;
   align-items: center;
@@ -20,12 +36,26 @@
   flex: 1;
 }
 
+.tamil-month-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .month-display h2 {
   margin: 0;
   font-size: 2rem;
   color: #ff6b35;
   font-family: 'Arial Black', sans-serif;
   letter-spacing: 1px;
+}
+
+.english-equiv {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 500;
 }
 
 .month-display p {
@@ -35,8 +65,16 @@
 }
 
 .month-display .gregorian-month {
-  color: #9ca3af;
-  font-size: 0.85rem;
+  color: #1f2937;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.calendar-sync-note {
+  font-size: 0.75rem !important;
+  color: #10b981 !important;
+  font-weight: 500 !important;
+  margin-top: 0.25rem !important;
 }
 
 .nav-btn-calendar {
@@ -227,12 +265,26 @@
     padding: 1rem;
   }
 
+  .calendar-info-banner {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 1rem;
+  }
+
   .tamil-calendar-header {
     flex-wrap: wrap;
   }
 
   .month-display h2 {
     font-size: 1.5rem;
+  }
+
+  .tamil-month-row {
+    gap: 0.3rem;
+  }
+
+  .english-equiv {
+    font-size: 0.8rem;
   }
 
   .tamil-calendar-day {
