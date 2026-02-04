@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { getTamilMonthForDate, getTamilWeekday, TAMIL_WEEKDAYS_SHORT } from '../utils/tamilCalendar';
+import { getTamilMonthForDate, getTamilWeekday, TAMIL_WEEKDAYS_SHORT, getApproximateTamilMonthDay } from '../utils/tamilCalendar';
 import '../styles/TamilCalendarView.css';
 
 /**
@@ -121,6 +121,9 @@ const TamilCalendarView = ({ events }) => {
                 <>
                   <div className="day-number">{day}</div>
                   <div className="tamil-day-label">{tamilWeekday}</div>
+                  <div className="tamil-month-day">
+                    {getTamilMonthForDate(dateObj).tamil} {getApproximateTamilMonthDay(dateObj)}
+                  </div>
                   {dayEvents.length > 0 && (
                     <div className="day-event-count">{dayEvents.length} event(s)</div>
                   )}

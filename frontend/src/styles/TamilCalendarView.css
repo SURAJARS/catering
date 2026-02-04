@@ -197,6 +197,14 @@
   margin-bottom: 0.25rem;
 }
 
+.tamil-month-day {
+  font-size: 0.65rem;
+  color: #ff6b35;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+}
+
 .day-event-count {
   font-size: 0.7rem;
   color: #ff6b35;

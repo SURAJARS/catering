@@ -34,18 +34,18 @@ export const TAMIL_MONTHS_ENGLISH = [
 ];
 
 export const GREGORIAN_MONTHS_TAMIL = {
-  0: 'மாசி',        // January -> Masi
-  1: 'பங்குனி',     // February -> Panguni
-  2: 'சோம ஆனி',    // March -> Soma Aani
-  3: 'சித்திரை',    // April -> Chittirai
-  4: 'வைகாசி',      // May -> Vaigasi
-  5: 'ஆனி',         // June -> Aani
-  6: 'ஆடி',         // July -> Aadi
-  7: 'ஐப்பசி',      // August -> Aipasi
-  8: 'கார்த்திகை',  // September -> Karthikai
-  9: 'மார்கழி',     // October -> Margazhi
-  10: 'தை',         // November -> Thai
-  11: 'தை',         // December -> Thai (Thai spans Nov-Dec)
+  0: 'தை',          // January -> Thai (Thai spans mid-Dec to mid-Jan, but Jan is mostly Thai)
+  1: 'தை',          // February early Feb is Thai, mid-Feb is Masi (showing Thai for early Feb as per snapshot)
+  2: 'மாசி',        // March -> Masi
+  3: 'பங்குனி',     // April -> Panguni (starts mid-Mar)
+  4: 'சித்திரை',    // May -> Chittirai (starts mid-Apr)
+  5: 'வைகாசி',      // June -> Vaigasi
+  6: 'ஆனி',         // July -> Aani
+  7: 'ஆடி',         // August -> Aadi
+  8: 'ஐப்பசி',      // September -> Aipasi
+  9: 'கார்த்திகை',  // October -> Karthikai
+  10: 'மார்கழி',    // November -> Margazhi
+  11: 'தை',         // December -> Thai (Thai starts mid-Dec)
 };
 
 /**
@@ -116,11 +116,54 @@ export const getTamilWeekday = (date, short = false) => {
   return short ? TAMIL_WEEKDAYS_SHORT[dayIndex] : TAMIL_WEEKDAYS[dayIndex];
 };
 
+/**
+ * Get approximate Tamil month day for a Gregorian date
+ * Note: This is approximate. Actual Tamil month day varies by year and requires panchangam data.
+ * Tamil month starts around the 14th of the corresponding Gregorian month.
+ * @param {Date} date - JavaScript Date object
+ * @returns {number} Approximate day in Tamil month
+ */
+export const getApproximateTamilMonthDay = (date) => {
+  const gregorianDay = date.getDate();
+  const gregorianMonth = date.getMonth();
+  
+  // Tamil month transitions occur around the 14th of each Gregorian month
+  // Early month (1-13): Part of previous Tamil month
+  // Late month (14-31): Current Tamil month counting
+  
+  if (gregorianDay < 14) {
+    // These days belong to the previous Tamil month
+    // Calculate from end of previous month
+    const prevMonth = new Date(date.getFullYear(), gregorianMonth, 0);
+    const daysInPrevMonth = prevMonth.getDate();
+    return daysInPrevMonth - (14 - gregorianDay) + 1;
+  } else {
+    // These days belong to the current Tamil month
+    return gregorianDay - 14 + 1;
+  }
+};
+
+/**
+ * Get Tamil month info with approximate day
+ * @param {Date} date - JavaScript Date object
+ * @returns {Object} { tamil, english, gregorianMonth, tamilMonthDay }
+ */
+export const getTamilMonthWithDay = (date) => {
+  const monthInfo = getTamilMonthForDate(date);
+  const tamilMonthDay = getApproximateTamilMonthDay(date);
+  return {
+    ...monthInfo,
+    tamilMonthDay,
+  };
+};
+
 export default {
   TAMIL_MONTHS,
   TAMIL_MONTHS_ENGLISH,
   getTamilMonthForDate,
+  getTamilMonthWithDay,
   formatDateWithTamil,
   TAMIL_WEEKDAYS,
   getTamilWeekday,
+  getApproximateTamilMonthDay,
 };
