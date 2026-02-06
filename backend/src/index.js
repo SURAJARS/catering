@@ -113,11 +113,12 @@ const startServer = async () => {
     // Initialize scheduled jobs
     initializeScheduledJobs();
 
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`
 ╔════════════════════════════════════════════════════════╗
 ║     🍽️  Catering Management API                      ║
-║     Server running on http://localhost:${PORT}                 ║
+║     Server running on http://0.0.0.0:${PORT}                 ║
+║     Local: http://localhost:${PORT}                       ║
 ║     Environment: ${process.env.NODE_ENV || 'development'}                    ║
 ║     Panchangam: ${process.env.PANCHANGAM_FETCH_HOUR}:${String(process.env.PANCHANGAM_FETCH_MINUTE).padStart(2, '0')} daily fetch          ║
 ╚════════════════════════════════════════════════════════╝

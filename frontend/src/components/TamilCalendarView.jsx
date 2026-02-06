@@ -19,7 +19,10 @@ const TamilCalendarView = ({ events }) => {
     const fetchPanchangam = async () => {
       setLoading(true);
       try {
+        console.log('Fetching panchangam for month:', currentDate);
         const data = await getPanchangamForMonth(currentDate);
+        console.log('Panchangam data received:', data);
+        console.log('Panchangam map size:', data?.size);
         setPanchangamData(data);
       } catch (error) {
         console.error('Failed to fetch panchangam:', error);
