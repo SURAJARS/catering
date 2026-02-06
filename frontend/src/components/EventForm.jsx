@@ -295,15 +295,44 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
                   capture="environment"
                   onChange={(e) => {
                     const files = Array.from(e.target.files || []);
-                    // In production, upload to server and get URLs
-                    // For now, store as base64
+                    // Compress and convert images to base64
                     files.forEach((file) => {
+                      // Limit individual file size to 2MB
+                      if (file.size > 2 * 1024 * 1024) {
+                        alert(`Image ${file.name} is too large (max 2MB). Please choose a smaller image.`);
+                        return;
+                      }
+
+                      // Compress image before converting to base64
                       const reader = new FileReader();
                       reader.onload = (event) => {
-                        setFormData((prev) => ({
-                          ...prev,
-                          eventPhotos: [...(prev.eventPhotos || []), event.target.result],
-                        }));
+                        const img = new Image();
+                        img.onload = () => {
+                          // Create canvas and compress
+                          const canvas = document.createElement('canvas');
+                          let width = img.width;
+                          let height = img.height;
+
+                          // Resize if too large (max 1200px width)
+                          if (width > 1200) {
+                            height = Math.round((height * 1200) / width);
+                            width = 1200;
+                          }
+
+                          canvas.width = width;
+                          canvas.height = height;
+                          const ctx = canvas.getContext('2d');
+                          ctx.drawImage(img, 0, 0, width, height);
+
+                          // Convert to base64 with compression
+                          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+
+                          setFormData((prev) => ({
+                            ...prev,
+                            eventPhotos: [...(prev.eventPhotos || []), compressedBase64],
+                          }));
+                        };
+                        img.src = event.target.result;
                       };
                       reader.readAsDataURL(file);
                     });
