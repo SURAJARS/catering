@@ -17,7 +17,7 @@ import './styles/App.css';
  * Routes between different sections and manages global state
  */
 function App() {
-  const { isAuthenticated, login, logout } = useAuth();
+  const { isAuthenticated, login, logout, getLastLoginDisplay } = useAuth();
   const [currentView, setCurrentView] = useState('events'); // events, calendar, tamil-calendar, dashboard, settings
   const [events, setEvents] = useState([]);
   const [stats, setStats] = useState(null);
@@ -205,7 +205,10 @@ function App() {
 
           {(
             <div className="user-menu">
-              <span className="user-email">Authenticated</span>
+              <div className="user-info">
+                <span className="user-status">Authenticated</span>
+                <span className="last-login">Last login: {getLastLoginDisplay()}</span>
+              </div>
               <button className="btn-logout" title="Logout" onClick={logout}>
                 <FiLogOut size={20} />
               </button>

@@ -148,6 +148,26 @@ html {
   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.user-status {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.last-login {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
 .user-email {
   color: white;
   font-size: 0.875rem;
