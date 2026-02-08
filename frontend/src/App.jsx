@@ -17,7 +17,7 @@ import './styles/App.css';
  * Routes between different sections and manages global state
  */
 function App() {
-  const { isAuthenticated, userEmail, login, logout, allowedEmail } = useAuth();
+  const { isAuthenticated, login, logout } = useAuth();
   const [currentView, setCurrentView] = useState('events'); // events, calendar, tamil-calendar, dashboard, settings
   const [events, setEvents] = useState([]);
   const [stats, setStats] = useState(null);
@@ -139,7 +139,7 @@ function App() {
   return (
     <>
       {!isAuthenticated ? (
-        <LoginModal onLogin={login} allowedEmail={allowedEmail} />
+        <LoginModal onLogin={login} />
       ) : (
         <div className="app">
         <header className="app-header">
@@ -203,9 +203,9 @@ function App() {
             {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
 
-          {userEmail && (
+          {(
             <div className="user-menu">
-              <span className="user-email">{userEmail}</span>
+              <span className="user-email">Authenticated</span>
               <button className="btn-logout" title="Logout" onClick={logout}>
                 <FiLogOut size={20} />
               </button>

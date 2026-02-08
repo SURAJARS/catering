@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import '../styles/LoginModal.css';
 
-const LoginModal = ({ onLogin, allowedEmail }) => {
-  const [email, setEmail] = useState('');
+const LoginModal = ({ onLogin }) => {
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Get password from environment variable
+  const correctPassword = import.meta.env.VITE_APP_PASSWORD;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,9 +16,15 @@ const LoginModal = ({ onLogin, allowedEmail }) => {
 
     // Simulate auth delay
     setTimeout(() => {
-      const result = onLogin(email);
-      if (!result.success) {
-        setError(result.error);
+      if (password === correctPassword) {
+        const result = onLogin(password);
+        if (result.success) {
+          // Success - App will re-render automatically
+        } else {
+          setError(result.error);
+        }
+      } else {
+        setError('Invalid password. Access denied.');
       }
       setLoading(false);
     }, 500);
@@ -31,13 +40,13 @@ const LoginModal = ({ onLogin, allowedEmail }) => {
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="password">Password</label>
             <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="password"
+              id="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
               required
               autoFocus
@@ -47,12 +56,8 @@ const LoginModal = ({ onLogin, allowedEmail }) => {
           {error && <div className="error-message">{error}</div>}
 
           <button type="submit" disabled={loading} className="btn-login">
-            {loading ? 'Verifying...' : 'Access App'}
+            {loading ? 'Verifying...' : 'Login'}
           </button>
-
-          <div className="login-info">
-            <small>Authorized email: {allowedEmail}</small>
-          </div>
         </form>
       </div>
     </div>

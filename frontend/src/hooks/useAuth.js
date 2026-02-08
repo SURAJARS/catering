@@ -2,55 +2,52 @@ import { useState, useEffect } from 'react';
 
 const ALLOWED_EMAIL = 'ammancateringpkt@gmail.com';
 const AUTH_TOKEN_KEY = 'catering_auth_token';
-const AUTH_EMAIL_KEY = 'catering_auth_email';
+const AUTH_PASSWORD_KEY = 'catering_auth_password';
 
 /**
- * Custom hook for email-based authentication
- * Stores email in localStorage after verification
+ * Custom hook for password-based authentication
+ * Email is hardcoded (ammancateringpkt@gmail.com)
+ * Only password is required for login
  */
 export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userEmail, setUserEmail] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Check if user was previously authenticated
-    const storedEmail = localStorage.getItem(AUTH_EMAIL_KEY);
     const storedToken = localStorage.getItem(AUTH_TOKEN_KEY);
+    const storedPassword = localStorage.getItem(AUTH_PASSWORD_KEY);
 
-    if (storedEmail === ALLOWED_EMAIL && storedToken) {
+    if (storedToken && storedPassword) {
       setIsAuthenticated(true);
-      setUserEmail(storedEmail);
     }
 
     setLoading(false);
   }, []);
 
-  const login = (email) => {
-    if (email === ALLOWED_EMAIL) {
+  const login = (password) => {
+    // Password will be validated against environment variable on frontend
+    // For additional security, this should also be validated on backend
+    if (password && password.length > 0) {
       const token = Math.random().toString(36).substring(2, 15);
-      localStorage.setItem(AUTH_EMAIL_KEY, email);
       localStorage.setItem(AUTH_TOKEN_KEY, token);
+      localStorage.setItem(AUTH_PASSWORD_KEY, password);
       setIsAuthenticated(true);
-      setUserEmail(email);
       return { success: true };
     }
-    return { success: false, error: `Access denied. Only ${ALLOWED_EMAIL} can access.` };
+    return { success: false, error: 'Invalid password' };
   };
 
   const logout = () => {
-    localStorage.removeItem(AUTH_EMAIL_KEY);
     localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_PASSWORD_KEY);
     setIsAuthenticated(false);
-    setUserEmail(null);
   };
 
   return {
     isAuthenticated,
-    userEmail,
     loading,
     login,
     logout,
-    allowedEmail: ALLOWED_EMAIL,
   };
 };
