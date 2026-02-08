@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@clerk/react": "^5.54.0",
+    "@clerk/react": "^5.0.0",
     "axios": "^1.5.0",
     "react": "^18.2.0",
     "react-calendar": "^4.6.0",
