@@ -21,13 +21,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'terser',
-    rollupOptions: {
-      external: [],
-    },
-  },
-  ssr: {
-    noExternal: ['@clerk/react', '@clerk/shared'],
+    minify: false,
   },
   esbuild: {
     drop: ['console', 'debugger'],
