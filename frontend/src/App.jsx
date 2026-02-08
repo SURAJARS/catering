@@ -17,11 +17,11 @@ import './styles/App.css';
  * Routes between different sections and manages global state
  */
 function App() {
-  const { isAuthenticated, userEmail, loading, login, logout, allowedEmail } = useAuth();
+  const { isAuthenticated, userEmail, login, logout, allowedEmail } = useAuth();
   const [currentView, setCurrentView] = useState('events'); // events, calendar, tamil-calendar, dashboard, settings
   const [events, setEvents] = useState([]);
   const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [appLoading, setAppLoading] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -49,7 +49,7 @@ function App() {
 
   const fetchEvents = async () => {
     try {
-      setLoading(true);
+      setAppLoading(true);
       const response = await eventsAPI.getAll();
       // Filter out cancelled events
       const activeEvents = response.data.data.filter((e) => !e.isCancelled);
@@ -57,19 +57,19 @@ function App() {
     } catch (error) {
       console.error('Failed to fetch events:', error);
     } finally {
-      setLoading(false);
+      setAppLoading(false);
     }
   };
 
   const fetchDashboardStats = async () => {
     try {
-      setLoading(true);
+      setAppLoading(true);
       const response = await eventsAPI.getDashboardStats();
       setStats(response.data.data);
     } catch (error) {
       console.error('Failed to fetch stats:', error);
     } finally {
-      setLoading(false);
+      setAppLoading(false);
     }
   };
 
@@ -91,7 +91,7 @@ function App() {
 
   const handleSaveEvent = async (eventData) => {
     try {
-      setLoading(true);
+      setAppLoading(true);
       if (selectedEvent) {
         await eventsAPI.update(selectedEvent._id, eventData);
       } else {
@@ -107,14 +107,14 @@ function App() {
       console.error('Failed to save event:', error);
       alert(error.response?.data?.message || 'Failed to save event');
     } finally {
-      setLoading(false);
+      setAppLoading(false);
     }
   };
 
   const handleDeleteEvent = async (eventId) => {
     if (window.confirm('Are you sure you want to cancel this event?')) {
       try {
-        setLoading(true);
+        setAppLoading(true);
         await eventsAPI.delete(eventId);
         await fetchEvents();
         if (currentView === 'dashboard') {
@@ -124,7 +124,7 @@ function App() {
         console.error('Failed to delete event:', error);
         alert('Failed to cancel event');
       } finally {
-        setLoading(false);
+        setAppLoading(false);
       }
     }
   };
@@ -272,7 +272,7 @@ function App() {
               events={events}
               onEdit={handleEditEvent}
               onDelete={handleDeleteEvent}
-              loading={loading}
+              loading={appLoading}
             />
           </>
         )}
@@ -296,7 +296,7 @@ function App() {
                 events={getFilteredEventsForDate()}
                 onEdit={handleEditEvent}
                 onDelete={handleDeleteEvent}
-                loading={loading}
+                loading={appLoading}
               />
             </div>
           </div>
@@ -324,11 +324,11 @@ function App() {
             setSelectedEvent(null);
           }}
           onSave={handleSaveEvent}
-          loading={loading}
+          loading={appLoading}
         />
       )}
 
-      {loading && currentView !== 'events' && currentView !== 'calendar' && (
+      {appLoading && currentView !== 'events' && currentView !== 'calendar' && (
         <div className="loading-overlay">Loading...</div>
       )}
     </div>
