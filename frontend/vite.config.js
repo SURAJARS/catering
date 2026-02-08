@@ -21,7 +21,10 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: false,
+    minify: 'terser',
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
   },
   esbuild: {
     drop: ['console', 'debugger'],
