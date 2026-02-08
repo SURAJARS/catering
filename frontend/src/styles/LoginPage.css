@@ -1,0 +1,109 @@
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.unauthorized-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  padding: 20px;
+}
+
+.unauthorized-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.unauthorized-content h2 {
+  color: #ef4444;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.unauthorized-content p {
+  color: #666;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.small-text {
+  font-size: 12px;
+  color: #999;
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.login-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #333;
+  font-weight: 700;
+}
+
+.login-header p {
+  margin: 10px 0 0 0;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Clerk Component Styling */
+.cl-rootBox {
+  width: 100%;
+}
+
+.cl-signIn__root {
+  width: 100%;
+}
+
+.cl-form__root {
+  width: 100%;
+}
+
+.cl-button {
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .login-content {
+    padding: 30px 20px;
+  }
+
+  .login-header h1 {
+    font-size: 24px;
+  }
+}

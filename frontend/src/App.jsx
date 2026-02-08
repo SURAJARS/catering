@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlus, FiMenu, FiX } from 'react-icons/fi';
+import { FiPlus, FiMenu, FiX, FiLogOut } from 'react-icons/fi';
+import { useUser, SignOutButton } from '@clerk/react';
 import EventForm from './components/EventForm';
 import EventList from './components/EventList';
 import CalendarView from './components/CalendarView';
@@ -7,6 +8,7 @@ import TamilCalendarView from './components/TamilCalendarView';
 import Dashboard from './components/Dashboard';
 import Settings from './components/Settings';
 import SearchBar from './components/SearchBar';
+import ProtectedRoute from './components/ProtectedRoute';
 import { eventsAPI } from './api';
 import './styles/App.css';
 
@@ -15,6 +17,7 @@ import './styles/App.css';
  * Routes between different sections and manages global state
  */
 function App() {
+  const { user } = useUser();
   const [currentView, setCurrentView] = useState('events'); // events, calendar, tamil-calendar, dashboard, settings
   const [events, setEvents] = useState([]);
   const [stats, setStats] = useState(null);
@@ -134,8 +137,9 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <header className="app-header">
+    <ProtectedRoute>
+      <div className="app">
+        <header className="app-header">
         <div className="header-content">
           <div className="logo-section">
             <img src="/assets/logo.png" alt="Amman Catering" className="app-logo" />
@@ -195,6 +199,17 @@ function App() {
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
+
+          {user && (
+            <div className="user-menu">
+              <span className="user-email">{user.emailAddresses[0]?.emailAddress}</span>
+              <SignOutButton>
+                <button className="btn-logout" title="Logout">
+                  <FiLogOut size={20} />
+                </button>
+              </SignOutButton>
+            </div>
+          )}
         </div>
 
         <nav className={`app-nav ${menuOpen ? 'open' : ''}`}>
@@ -316,6 +331,7 @@ function App() {
         <div className="loading-overlay">Loading...</div>
       )}
     </div>
+    </ProtectedRoute>
   );
 }
 
