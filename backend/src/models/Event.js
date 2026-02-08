@@ -36,6 +36,7 @@ const EventSchema = new mongoose.Schema(
         'School orders',
         'Temple function',
         'Photo ceremony',
+        'Housewarming',
         'Others'
       ],
       required: [true, 'Event type is required'],
@@ -56,6 +57,11 @@ const EventSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Phone number is required'],
       match: /^[0-9]{10}$/,
+    },
+    alternateContactNumber: {
+      type: String,
+      default: '',
+      match: /^$|^[0-9]{10}$/, // Allow empty or 10 digits
     },
     location: {
       type: String,

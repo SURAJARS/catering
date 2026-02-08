@@ -68,6 +68,7 @@ export const createEvent = async (req, res) => {
       clientName,
       clientNickname,
       phoneNumber,
+      alternateContactNumber,
       location,
       totalAmount,
       advancePaid,
@@ -83,6 +84,11 @@ export const createEvent = async (req, res) => {
     // Validate phone number (10 digits)
     if (!/^\d{10}$/.test(phoneNumber)) {
       return sendError(res, 'Phone number must be 10 digits', 400);
+    }
+
+    // Validate alternate contact number if provided (10 digits or empty)
+    if (alternateContactNumber && !/^\d{10}$/.test(alternateContactNumber)) {
+      return sendError(res, 'Alternate contact number must be 10 digits', 400);
     }
 
     // Validate event time format (HH:MM)
@@ -104,6 +110,7 @@ export const createEvent = async (req, res) => {
       clientName,
       clientNickname: clientNickname || '',
       phoneNumber,
+      alternateContactNumber: alternateContactNumber || '',
       location,
       totalAmount: parseFloat(totalAmount),
       advancePaid: parseFloat(advancePaid) || 0,

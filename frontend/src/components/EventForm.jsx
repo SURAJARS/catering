@@ -27,6 +27,7 @@ const EVENT_TYPES = [
   'School orders',
   'Temple function',
   'Photo ceremony',
+  'Housewarming',
   'Others'
 ];
 
@@ -39,6 +40,7 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
       clientName: '',
       clientNickname: '',
       phoneNumber: '',
+      alternateContactNumber: '',
       location: '',
       totalAmount: '',
       advancePaid: '',
@@ -220,6 +222,20 @@ const EventForm = ({ event, onClose, onSave, loading }) => {
                 className={errors.phoneNumber ? 'error' : ''}
               />
               {errors.phoneNumber && <span className="error-text">{errors.phoneNumber}</span>}
+            </div>
+
+            <div className="form-group">
+              <label>
+                <FiPhone className="icon" />
+                Alternate Contact Number
+              </label>
+              <input
+                type="tel"
+                name="alternateContactNumber"
+                value={formData.alternateContactNumber}
+                onChange={handleChange}
+                placeholder="10-digit number (optional)"
+              />
             </div>
           </div>
 
